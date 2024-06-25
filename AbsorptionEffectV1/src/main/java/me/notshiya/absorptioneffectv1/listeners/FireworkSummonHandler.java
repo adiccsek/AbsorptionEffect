@@ -13,15 +13,12 @@ public class FireworkSummonHandler{
 
     public static void launchYellowFirework(Player player, boolean success) {
         if (success) {
-            // Get the player's location and adjust the Y coordinate to be slightly above the player
             Location fireworkLocation = player.getLocation().add(0, 1, 0);
 
-            // Firework effect with yellow color, ball shape, and flicker
             Firework firework = player.getWorld().spawn(fireworkLocation, Firework.class);
             FireworkMeta fireworkMeta = firework.getFireworkMeta();
             fireworkMeta.setPower(0);
-            // Power adjusted to ensure a smaller burst
-            // Add metadata to the firework to prevent damage
+
             firework.setMetadata("nodamage", new FixedMetadataValue(AbsorptionEffectV1.getInstance(), true));
 
             fireworkMeta.addEffect(FireworkEffect.builder()
@@ -29,10 +26,8 @@ public class FireworkSummonHandler{
                     .with(FireworkEffect.Type.BALL)
                     .withFlicker()
                     .build());
-            // Apply the firework meta to the firework
-            firework.setFireworkMeta(fireworkMeta);
 
-            // Schedule the firework to explode immediately
+            firework.setFireworkMeta(fireworkMeta);
             Bukkit.getScheduler().runTaskLater(AbsorptionEffectV1.getInstance(), firework::detonate, 1L);
         }
     }

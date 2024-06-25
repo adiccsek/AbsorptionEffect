@@ -7,8 +7,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class SetDisplayName {
 
-
-
     public static ItemStack createGoldNugget() {
        ItemStack goldNugget = new ItemStack(Material.GOLD_NUGGET);
        ItemMeta goldNuggetMeta = goldNugget.getItemMeta();

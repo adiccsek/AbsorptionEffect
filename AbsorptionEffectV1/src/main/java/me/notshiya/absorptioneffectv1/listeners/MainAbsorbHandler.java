@@ -19,16 +19,13 @@ public class MainAbsorbHandler implements Listener {
     public void onRightClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 
-        // Check if the action is a right-click
         if (event.getAction().toString().contains("RIGHT_CLICK")) {
-            // Check if the player is holding a gold nugget in either hand
             if (player.getInventory().getItemInMainHand().getType() == Material.GOLD_NUGGET
                     || player.getInventory().getItemInOffHand().getType() == Material.GOLD_NUGGET) {
 
                 UUID playerUUID = player.getUniqueId();
                 long currentTime = System.currentTimeMillis();
 
-                // Check for cooldown
                 if (cooldowns.containsKey(playerUUID)) {
                     long timeSinceLastUse = currentTime - cooldowns.get(playerUUID);
                     if (timeSinceLastUse < 5000) {
@@ -41,27 +38,25 @@ public class MainAbsorbHandler implements Listener {
                 boolean success = false;
                 double currentAbsorption = player.getAbsorptionAmount();
                 double maxAbsorption = 18;
-                // Check if the player has reached the maximum absorption amount
+
                 if (currentAbsorption + 4 > maxAbsorption) {
                     player.sendMessage(ChatColor.YELLOW + "sEffect | " + ChatColor.RED + "You have reached the maximum absorption amount!");
                     event.setCancelled(true);
                     return;
                 }
-                // Check if the player has absorption
+
                 if (currentAbsorption == 0) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 999999, 0, false, false));
-                } else { // Add 4 absorption hearts
+                } else {
                     player.setAbsorptionAmount(Math.min(currentAbsorption + 4, maxAbsorption));
                 }
                 success = true;
-                //Send successful message
+
                 player.sendMessage(ChatColor.YELLOW + "sEffect | " + ChatColor.GREEN + "Absorption effect added!");
                 System.out.println("Absorption effect added to " + player.getName());
 
-                // Set new cooldown
                 cooldowns.put(playerUUID, currentTime);
 
-                // Remove one gold nugget from the player's inventory
                 ItemStack itemMainHand = player.getInventory().getItemInMainHand();
                 ItemStack itemOffHand = player.getInventory().getItemInOffHand();
 
