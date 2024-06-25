@@ -1,0 +1,6 @@
+name: AbsorptionEffectV1
+version: '${project.version}'
+main: me.notshiya.absorptioneffectv1.AbsorptionEffectV1
+api-version: '1.20'
+author: notshiya
+description: The Golden Nugget works as a custom item that gives the player the Absorption hearts if they have right-clicked on it.
